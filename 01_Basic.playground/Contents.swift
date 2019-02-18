@@ -29,7 +29,7 @@ let num1 = 2    // num1's type is Int. Prefer use Int but not others like UInt.
 let num2 = 3.14 // num2's type is Double. Prefer use Double but not Float.
                 // Double's size is 64-bit.
 
-var numericIteral: Int
+var numericIteral: Int = 0
 numericIteral = 17
 numericIteral = 0b10001 // Binary
 numericIteral = 0o21    // Octal
@@ -75,7 +75,11 @@ if let validNumber = convertedNumber {
     print("The number is \(validNumber).")
 }
 
-if let validNumber = convertedNumber, validNumber2 = convertedNumber
-        where validNumber > 100 {
+//if let validNumber = convertedNumber, validNumber2 = convertedNumber
+//        where validNumber > 100 {
+//    print("The number is \(validNumber) and bigger than 100.")
+//}
+
+if let validNumber = convertedNumber, validNumber > 100 {
     print("The number is \(validNumber) and bigger than 100.")
 }

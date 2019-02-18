@@ -190,7 +190,7 @@ enum TemperatureUnit: Character {
 }
 
 let temparatureUnit1 = TemperatureUnit(symbol: "a") // nil
-let temparatureUnit2 = TemperatureUnit(rawValue: "a") // nil
+let temparatureUnit2 = TemperatureUnit(rawValue: "K") // nil
 
 
 ////////////////////////////////////////////////////////////////////////////////

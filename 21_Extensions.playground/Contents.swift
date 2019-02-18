@@ -58,7 +58,7 @@ extension Range {
 // Methods
 
 extension Int {
-    func repetitions(task: () -> Void) {
+    func repetitions(_ task: () -> Void) {
         for _ in 0..<self {
             task()
         }
@@ -70,9 +70,13 @@ extension Int {
     }
 }
 
-2.repetitions({
+2.repetitions {
     print("Hello World!")
-})
+}
+
+//2.repetitions({
+//    print("Hello World!")
+//})
 
 var num = 2
 num.square() // 4
@@ -82,7 +86,7 @@ num.square() // 4
 // Subscriptions
 
 extension Int {
-    subscript(index: Int) -> Int {
+    subscript(_ index: Int) -> Int {
         var num = self
         
         for _ in 0..<index {
@@ -124,3 +128,5 @@ extension Int {
 }
 
 2.kind // Positive
+(-2).kind
+0.kind

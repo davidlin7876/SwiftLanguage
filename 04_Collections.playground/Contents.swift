@@ -9,7 +9,8 @@ import Cocoa
 // Create Array
 
 let array1 = [Int]()
-let array2 = [Int](count: 2, repeatedValue: 3) // [3, 3]
+//let array2 = [Int](count: 2, repeatedValue: 3) // [3, 3]
+let array2 = [Int](repeating: 3, count: 2) // [3, 3]
 let array3 = [1, 2]
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,12 +31,12 @@ numArray[0] = 0
 numArray[0...2] = [1, 2, 3, 4]
 
 // Add
-numArray.insert(1, atIndex: 1)
+numArray.insert(1, at: 1)
 numArray.append(4)
 numArray += [5]
 
 // Remove
-numArray.removeAtIndex(1)
+numArray.remove(at:1)
 numArray.removeFirst()
 numArray.removeLast()
 
@@ -46,7 +47,7 @@ for num in numArray {
     print(num)
 }
 
-for (index, num) in numArray.enumerate() {
+for (index, num) in numArray.enumerated() {
     print("\(index): \(num)")
 }
 
@@ -83,7 +84,7 @@ for num in numSet {
     print(num)
 }
 
-for num in numSet.sort() {
+for num in numSet.sorted() {
     print(num)
 }
 
@@ -98,20 +99,20 @@ for num in numSet.sort() {
 let numSet1: Set = [1, 2, 3]
 var numSet2: Set = [2, 3, 4]
 
-numSet2.intersect(numSet1).sort() // 2, 3
-numSet2.exclusiveOr(numSet1).sort() // 1, 4
-numSet2.union(numSet1).sort() // 1, 2, 3, 4
-numSet2.subtract(numSet1).sort() // 1
-
-numSet2.subtractInPlace(numSet1) // Note: in this case numSet2 is changed.
-
-numSet2.isSubsetOf(numSet1)
-numSet2.isStrictSubsetOf(numSet1)
-
-numSet2.isSupersetOf(numSet1)
-numSet2.isStrictSupersetOf(numSet1)
-
-numSet2.isDisjointWith(numSet1) // whether have any values in common.
+//numSet2.intersect(numSet1).sort() // 2, 3
+//numSet2.exclusiveOr(numSet1).sort() // 1, 4
+//numSet2.union(numSet1).sort() // 1, 2, 3, 4
+//numSet2.subtract(numSet1).sort() // 1
+//
+//numSet2.subtractInPlace(numSet1) // Note: in this case numSet2 is changed.
+//
+//numSet2.isSubsetOf(numSet1)
+//numSet2.isStrictSubsetOf(numSet1)
+//
+//numSet2.isSupersetOf(numSet1)
+//numSet2.isStrictSupersetOf(numSet1)
+//
+//numSet2.isDisjointWith(numSet1) // whether have any values in common.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Create Dictionary
@@ -144,7 +145,7 @@ students["Emily"] = 11
 
 // Remove
 students["Tom"] = nil
-students.removeValueForKey("Tom") // Return nil as it's already removed.
+students.removeValue(forKey:"Tom") // Return nil as it's already removed.
 
 ////////////////////////////////////////////////////////////////////////////////
 // Iterating over a Dictionary

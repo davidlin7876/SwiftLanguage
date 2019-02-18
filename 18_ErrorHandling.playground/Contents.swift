@@ -2,7 +2,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Throw and Catch
 
-enum PrinterError: ErrorType {
+enum PrinterError: Error {
     case NoPaper
     case OutOfService
 }
@@ -25,7 +25,7 @@ do {
 ////////////////////////////////////////////////////////////////////////////////
 // Another Full Example
 
-enum VendingMachineError: ErrorType {
+enum VendingMachineError: Error {
     case InvalidSelection
     case InsufficientFunds(coinsNeeded: Int)
     case OutOfStock
@@ -44,7 +44,7 @@ class VendingMachine {
     
     var coinsDepoisted = 0
     
-    func dispenceSnack(name: String) {
+    func dispenceSnack(_ name: String) {
         print("Despencing \(name)")
     }
     
@@ -96,7 +96,7 @@ func someThrowingFuction() throws -> Int {
 
 let x = try? someThrowingFuction()
 
-let y: Int?
+var y: Int? = nil
 do {
     y = try someThrowingFuction()
 } catch {
@@ -115,21 +115,21 @@ do {
 
 class File {}
 
-func openFile(name: String) -> File {
+func openFile(_ name: String) -> File {
     print("Open file \(name)")
     
     return File()
 }
 
-func closeFile(name: String) {
+func closeFile(_ name: String) {
     print("Close file \(name)")
 }
 
-func exists(name: String) -> Bool {
+func exists(_ name: String) -> Bool {
     return true
 }
 
-func processFile(name: String) {
+func processFile(_ name: String) {
     if exists(name) {
         let file = openFile(name)
         defer {
@@ -159,4 +159,40 @@ processFile("test.txt")
 
 let age = -3
 //assert(age >= 0, "Age can't be negative.") // This assert will fail
+
+
+func lookforSomething(_ name:String) throws{
+    //这里是作用域1 整个函数作用域
+
+    print("1-1")
+    if name == ""{
+        //这里是作用域2 if的作用域
+        print("2-1")
+        defer{
+            print("2-2")
+        }
+        print("2-3")
+    }
+    print("1-2")
+    defer{
+        print("1-3")
+    }
+    print("1-4")
+
+    if name == "hello"{
+        //作用域3
+        print("3-1")
+        defer{
+            print("3-2")
+        }
+        print("3-3")
+        defer{
+            print("3-4")
+        }
+    }
+}
+//有兴趣的看看依次输出什么
+//try! lookforSomething("")
+//调出 debug Area 快捷键 shift+ command + y
+try! lookforSomething("hello")
 

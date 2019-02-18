@@ -114,7 +114,7 @@ for thing in things {
     case let movie as Movie:
         print("a movie called \(movie.name), dir. \(movie.director)")
         
-    case let stringConverter as String -> String:
+    case let stringConverter as (String) -> String:
         print(stringConverter("World"))
         
     default:

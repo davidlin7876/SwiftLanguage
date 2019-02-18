@@ -9,7 +9,7 @@ class Counter {
         count += 1
     }
     
-    func incrementBy(amount: Int, numberOfTimes times: Int) {
+    func incrementBy(_ amount: Int, numberOfTimes times: Int) {
         count += amount * times
     }
 
@@ -41,7 +41,7 @@ struct Point {
     var x = 0.0
     var y = 0.0
     
-    func isToTheRightOfX(x: Double) -> Bool {
+    func isToTheRightOfX(_ x: Double) -> Bool {
         return self.x > x
     }
 }
@@ -58,8 +58,7 @@ point.isToTheRightOfX(2) // true
 
 struct Square {
     var length = 0.0
-    
-    mutating func incrementLengthBy(length: Double) {
+    mutating func incrementLengthBy(_ length: Double) {
         self.length += length
     }
 }
@@ -74,14 +73,14 @@ enum Level {
     
     mutating func next() {
         switch self {
-        case Low:
-            self = Medium
+        case .Low:
+            self = .Medium
             
-        case Medium:
-            self = High
+        case .Medium:
+            self = .High
             
-        case High:
-            self = Low
+        case .High:
+            self = .Low
         }
     }
 }

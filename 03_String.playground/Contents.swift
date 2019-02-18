@@ -34,7 +34,7 @@ var hello = "Hello"
 hello += " World!"
 
 hello = "Hello"
-hello.appendContentsOf(" World")
+hello.append(" World")
 hello.append(Character("!"))
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,11 +47,12 @@ var sayName = "My name is \(name)."
 // Index
 
 var helloWorld = "Hello World!"
-helloWorld.characters[helloWorld.startIndex] // H
-helloWorld.characters[helloWorld.startIndex.successor()] // e
-helloWorld.characters[helloWorld.startIndex.advancedBy(1)] // e
-helloWorld.characters[helloWorld.endIndex.advancedBy(-1)] // !
-helloWorld.characters[helloWorld.endIndex.predecessor()] // !
+helloWorld[helloWorld.startIndex] // H
+helloWorld[helloWorld.index(after: helloWorld.startIndex)] // e
+//helloWorld[helloWorld.startIndex.advancedBy(1)] // e
+//helloWorld[helloWorld.endIndex.advancedBy(-1)] // !
+//helloWorld[helloWorld.endIndex.predecessor()] // !
+helloWorld[helloWorld.index(before: helloWorld.endIndex)] // H
 
 for index in helloWorld.characters.indices {
     print("\(helloWorld[index])", terminator: "")
@@ -63,12 +64,14 @@ print()
 
 var welcome = "Hello"
 
-welcome.insert("!", atIndex: welcome.endIndex) // Hello!
-welcome.insertContentsOf(" World".characters,
-                         at: welcome.startIndex.advancedBy(5)) // Hello World!
-welcome.removeAtIndex(welcome.endIndex.predecessor()) // Hello World
-let range = welcome.startIndex.advancedBy(5)..<welcome.endIndex
-welcome.removeRange(range)
+welcome.insert("!", at: welcome.endIndex) // Hello!
+//welcome.insert(" World".,at: welcome.startIndex.advancedBy(5)) // Hello World!
+welcome.insert(contentsOf: " World", at: welcome.index(welcome.startIndex, offsetBy: 5))
+//welcome.remove(welcome.endIndex.predecessor()) // Hello World
+welcome.remove(at: welcome.index(before: helloWorld.endIndex))
+let range = welcome.index(welcome.startIndex, offsetBy: 5)..<welcome.endIndex
+//welcome.removeRange(range)
+welcome.removeSubrange(range)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Prefix Suffix

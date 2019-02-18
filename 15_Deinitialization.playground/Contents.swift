@@ -26,3 +26,4 @@ class SomeSubClass: SomeClass {
 var classA = SomeSubClass()
 var classB = SomeSubClass()
 classB = classA // The old instance of classB will be deinitialized.
+

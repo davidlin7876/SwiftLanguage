@@ -126,7 +126,7 @@ loopCharacters: for char in characters {
 // When a condition must be true.
 // Note: a guard statement always has an else clause.
 
-func check(student: [String: String]) {
+func check(_ student: [String: String]) {
     guard let name = student["name"] else {
         return
     }
@@ -153,6 +153,7 @@ check(student)
 // the body of the if executes on the minimum deployment target specified by your target.
 if #available(iOS 9, OSX 10.10, *) {
     // do something
+    print("runWithNewFeature")
 }
 
 // Note: @available only limit the just following function, class, etc.
@@ -160,6 +161,8 @@ if #available(iOS 9, OSX 10.10, *) {
 @available(iOS 9, OSX 10.10, *)
 func runWithNewFeature() {
     // do something
+    print("runWithNewFeature")
 }
+runWithNewFeature()
 
 

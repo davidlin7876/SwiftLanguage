@@ -10,13 +10,13 @@ func sayHelloWorld() -> String {
 
 print(sayHelloWorld())
 
-func sayHello(name: String) -> String {
+func sayHello(_ name: String) -> String {
     return "Hello, " + name
 }
 
 print(sayHello("Tom"))
 
-func sayGoodbay(name: String) {
+func sayGoodbay(_ name: String) {
     print("Goodbye, " + name)
 }
 
@@ -25,7 +25,7 @@ sayGoodbay("Tom")
 ////////////////////////////////////////////////////////////////////////////////
 // Functions with Optional Multiple Return Values
 
-func minMax(numbers: [Int]) -> (min: Int, max: Int)? {
+func minMax(_ numbers: [Int]) -> (min: Int, max: Int)? {
     
     guard !numbers.isEmpty else {
         return nil
@@ -67,7 +67,7 @@ print(sayHello(to: "Tom", and: "Jack"))
 ////////////////////////////////////////////////////////////////////////////////
 // Omitting External Parameter Names
 
-func sayHello2(person: String, _ anotherPerson: String) -> String {
+func sayHello2(_ person: String, _ anotherPerson: String) -> String {
     return "Hello, \(person) and \(anotherPerson)."
 }
 
@@ -80,7 +80,7 @@ print(sayHello2("Tom", "Jack"))
 // This ensures that all calls to the function use the same order 
 //   for their nondefault arguments.
 
-func sayHello3(person: String = "World") -> String {
+func sayHello3(_ person: String = "World") -> String {
     return "Hello, " + person
 }
 
@@ -93,7 +93,7 @@ print(sayHello3("Tom"))
 // A variadic parameter accepts zero or more values of a specified type.
 // And it will be treated as an array of the appropriate type in the function.
 
-func calcAverage(numbers: Double...) -> Double? {
+func calcAverage(_ numbers: Double...) -> Double? {
     // Note: the variadic parameter can have no value.
     guard numbers.count > 0 else {
         return nil
@@ -121,7 +121,7 @@ if let average = calcAverage(3, 1, 2) {
 ////////////////////////////////////////////////////////////////////////////////
 // In-Out Parameters
 
-func swapTwoInts(inout num1: Int, inout _ num2: Int) {
+func swapTwoInts(_ num1: inout Int, _ num2:inout Int) {
     (num1, num2) = (num2, num1)
 }
 
@@ -143,7 +143,7 @@ func multiplyTwoInts(a: Int, b: Int) -> Int {
     return a * b
 }
 
-func printMathResult(mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+func printMathResult(_ mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
     print("Result: \(mathFunction(a, b))")
 }
 
@@ -163,11 +163,11 @@ func stepBackward(num: Int) -> Int {
     return num - 1
 }
 
-func chooseStepFunction(isForward: Bool) -> ((Int) -> Int) {
+func chooseStepFunction(_ isForward: Bool) -> ((Int) -> Int) {
     return isForward ? stepForward : stepBackward
 }
 
-func moveToZero(num: Int) -> Int {
+func moveToZero(_ num: Int) -> Int {
     if num == 0 {
         return 0
     }
@@ -187,9 +187,9 @@ while count != 0 {
 ////////////////////////////////////////////////////////////////////////////////
 // Nested Functions
 
-func printInfo(name: String, age: Int) {
+func printInfo(_ name: String, age: Int) {
     
-    func printName(name: String) {
+    func printName(_ name: String) {
         print("Name: \(name)")
     }
     

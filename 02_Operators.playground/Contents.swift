@@ -12,7 +12,8 @@ import Cocoa
 6 % 4 // 2
 -6 % 4 // -2
 6 % -4 // 2
-5.3 % 2.5 // ~0.3
+//5.3 % 2.5 // ~0.3
+let rem = 5.3.truncatingRemainder(dividingBy: 2.5)
 
 var num = 1
 num += 1 // 2

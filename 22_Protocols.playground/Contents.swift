@@ -27,7 +27,7 @@ protocol DemoProtocol {
 ////////////////////////////////////////////////////////////////////////////////
 // Method Requirements
 
-protocol RandomNumberGenerator {
+public protocol RandomNumberGenerator {
     func random() -> Double
 }
 
@@ -38,7 +38,8 @@ class LinearCongruentialGenerator: RandomNumberGenerator {
     let c = 29573.0
     
     func random() -> Double {
-        lastRandom = ((lastRandom * a + c) % m)
+//        lastRandom = ((lastRandom * a + c) % m)
+        lastRandom = (lastRandom * a + c).truncatingRemainder(dividingBy: m)
         return lastRandom / m
     }
 }
@@ -60,10 +61,10 @@ enum OnOffState: Togglable {
     
     mutating func toggle() {
         switch self {
-        case On:
-            self = Off
-        case Off:
-            self = On
+        case .On:
+            self = .Off
+        case .Off:
+            self = .On
         }
     }
 }
@@ -123,9 +124,9 @@ protocol DiceGame {
 }
 
 protocol DiceGameDelegate {
-    func gameDidStart(game: DiceGame)
-    func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
-    func gameDidEnd(game: DiceGame)
+    func gameDidStart(_ game: DiceGame)
+    func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
+    func gameDidEnd(_ game: DiceGame)
 }
 
 class SnackerAndLadders: DiceGame {
@@ -136,7 +137,8 @@ class SnackerAndLadders: DiceGame {
     var delegate: DiceGameDelegate?
     
     init() {
-        board = [Int](count: finalSquare + 1, repeatedValue: 0)
+//        board = [Int](count: finalSquare + 1, repeatedValue: 0)
+        board = [Int](repeating: 0, count: finalSquare + 1)
         
         board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
         board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
@@ -173,7 +175,7 @@ class SnackerAndLadders: DiceGame {
 class SnackerAndLaddersTracker: DiceGameDelegate {
     var countOfTurns = 0
     
-    func gameDidStart(game: DiceGame) {
+    func gameDidStart(_ game: DiceGame) {
         countOfTurns = 0
         
         if game is SnackerAndLadders {
@@ -183,12 +185,12 @@ class SnackerAndLaddersTracker: DiceGameDelegate {
         print("The is using a \(game.dice.sides)-sided dice")
     }
     
-    func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
+    func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
         countOfTurns += 1
         print("Play with dice roll: \(diceRoll)")
     }
     
-    func gameDidEnd(game: DiceGame) {
+    func gameDidEnd(_ game: DiceGame) {
         print("Dice game ends. Last for \(countOfTurns) turns")
     }
 }
@@ -244,22 +246,22 @@ protocol Aged {
 class Person: Named, Aged {
     var name: String
     var age: Int
-    
-    init(name: String, age: Int) {
+
+    init(_ name: String, age: Int) {
         self.name = name
         self.age = age
     }
 }
 
-// Protocol compositions have the form protocol<SomeProtocol, AnotherProtocol>
-func wishHappyBirthday(celebrator: protocol<Named, Aged>) {
-    print("Happy birthday \(celebrator.name), you're \(celebrator.age)!")
-}
-
-print()
-
-let person = Person(name: "Tom", age: 30)
-wishHappyBirthday(person)
+//// Protocol compositions have the form protocol<SomeProtocol, AnotherProtocol>
+//func wishHappyBirthday(_ celebrator: protocol<Named, Aged>) {
+//    print("Happy birthday \(celebrator.name), you're \(celebrator.age)!")
+//}
+//
+//print()
+//
+//let person = Person(name: "Tom", age: 30)
+//wishHappyBirthday(person)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -268,7 +270,7 @@ wishHappyBirthday(person)
 // is, as?, as!
 
 let objects: [AnyObject] = [
-    Person(name: "Tom", age: 30),
+    Person("Tom", age: 30),
     SnackerAndLadders()
 ]
 
@@ -290,7 +292,7 @@ for object in objects {
 // Optional protocol requirements can only be specified 
 //   if your protocol is marked with the @objc attribute.
 @objc protocol MoveProtocol {
-    optional func move(count: Int) -> Int
+    @objc optional func move(_ count: Int) -> Int
 }
 
 // @objc protocols can be adopted only by classes that inherit from 
@@ -298,7 +300,7 @@ for object in objects {
 //   They can’t be adopted by structures or enumerations.
 class MoveToZero: NSObject, MoveProtocol {
     
-    func move(count: Int) -> Int {
+    func move(_ count: Int) -> Int {
         if count < 0 {
             return count + 1
             
@@ -366,17 +368,17 @@ extension PrettyTextRepresentable {
 
 // Define an extension to the CollectionType protocol that applies to any
 //   collection whose elements conform to the TextRepresentable protocol above.
-extension CollectionType where Generator.Element: TextualRepresentable {
-    var textualDescription: String {
-        let itemsAsText = self.map { $0.textualDescription }
-        return "[" + itemsAsText.joinWithSeparator(", ") + "]"
-    }
-}
-
-let collection = [
-    Dice(sides: 6, generator: LinearCongruentialGenerator()),
-    Dice(sides: 12, generator: LinearCongruentialGenerator())
-]
-
-print()
-print(collection.textualDescription)
+//extension CollectionType where Generator.Element: TextualRepresentable {
+//    var textualDescription: String {
+//        let itemsAsText = self.map { $0.textualDescription }
+//        return "[" + itemsAsText.joinWithSeparator(", ") + "]"
+//    }
+//}
+//
+//let collection = [
+//    Dice(sides: 6, generator: LinearCongruentialGenerator()),
+//    Dice(sides: 12, generator: LinearCongruentialGenerator())
+//]
+//
+//print()
+//print(collection.textualDescription)

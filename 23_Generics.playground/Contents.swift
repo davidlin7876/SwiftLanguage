@@ -2,7 +2,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Generic Fuctions
 
-func swapTwoValues<T>(inout a: T, inout _ b: T) {
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
     (a, b) = (b, a)
 }
 
@@ -21,7 +21,7 @@ b // 1
 struct Stack<Element> {
     var items = [Element]()
     
-    mutating func push(item: Element) {
+    mutating func push(_ item: Element) {
         items.append(item)
     }
     
@@ -54,7 +54,7 @@ extension Stack {
 
 func findIndex<T: Equatable>(items: [T], itemToFind: T) -> Int? {
     
-    for (index, item) in items.enumerate() {
+    for (index, item) in items.enumerated() {
         if item == itemToFind {
             return index
         }
@@ -77,9 +77,9 @@ protocol Container {
     
     var count: Int { get }
     
-    mutating func append(item: ItemType)
+    mutating func append(_ item: ItemType)
     
-    subscript(index: Int) -> ItemType { get }
+    subscript(_ index: Int) -> ItemType { get }
 }
 
 extension Stack: Container {
@@ -90,7 +90,7 @@ extension Stack: Container {
         return items.count
     }
     
-    mutating func append(item: ItemType) {
+    mutating func append(_ item: ItemType) {
         push(item)
     }
     
@@ -105,27 +105,27 @@ extension Array: Container {}
 ////////////////////////////////////////////////////////////////////////////////
 // Where Clauses
 
-func allItemsMatch<C1: Container, C2: Container
-    where C1.ItemType == C2.ItemType, C1.ItemType: Equatable>
-    (containerA: C1, containerB: C2) -> Bool {
-    
-    if containerA.count != containerB.count {
-        return false
-    }
-    
-    for index in 0..<containerA.count {
-        if containerA[index] != containerB[index] {
-            return false
-        }
-    }
-    
-    return true
-}
-
-var stackOfInt = Stack<Int>()
-stackOfInt.push(1)
-stackOfInt.append(2)
-
-var arrayOfInt = [1, 2]
-
-allItemsMatch(stackOfInt, containerB: arrayOfInt) // true
+//func allItemsMatch<C1: Container, C2: Container
+//    where C1.ItemType == C2.ItemType, C1.ItemType: Equatable>
+//    (containerA: C1, containerB: C2) -> Bool {
+//    
+//    if containerA.count != containerB.count {
+//        return false
+//    }
+//    
+//    for index in 0..<containerA.count {
+//        if containerA[index] != containerB[index] {
+//            return false
+//        }
+//    }
+//    
+//    return true
+//}
+//
+//var stackOfInt = Stack<Int>()
+//stackOfInt.push(1)
+//stackOfInt.append(2)
+//
+//var arrayOfInt = [1, 2]
+//
+//allItemsMatch(stackOfInt, containerB: arrayOfInt) // true

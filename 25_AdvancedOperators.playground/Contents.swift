@@ -39,8 +39,11 @@ unsignedOverflow1 &+ 1                  // 0b00000000, 0
 var unsignedOverflow2 = UInt8.min       // 0b00000000, 0
 unsignedOverflow2 &- 1                  // 0b11111111, 255
 
-var signedOverflow = Int8.min           // 0b10000000, -128
+var signedOverflow =  Int8.min          // 0b10000000, -128
 signedOverflow = signedOverflow &- 1    // 0b01111111, 127
+
+var signedOverflow2 =  Int8.max         // 0b01111111, 127
+signedOverflow = signedOverflow2 &+ 1   // 0b10000000, -128
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +71,7 @@ let positive = Vector2D(x: 3.0, y: 2.0)
 let negative = -positive // (-3.0, -2.0)
 
 // Compound Assignment Operators
-func +=(inout left: Vector2D, right: Vector2D) {
+func +=( left: inout Vector2D, right: Vector2D) {
     left = left + right
 }
 
@@ -81,22 +84,21 @@ func !=(left: Vector2D, right: Vector2D) -> Bool {
     return !(left == right)
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Custom Operators
 
 // Declare Custom Operators
 //   New operators are declared at a global level using the operator keyword,
 //   and are marked with the prefix, infix or postfix modifiers:
-prefix operator +++ {}
+//prefix operator +++ {}
 
 // Implement Custom Operators
-prefix func +++(inout vector: Vector2D) {
-    vector += vector
-}
+//prefix func +++(vector: inout Vector2D) {
+//    vector += vector
+//}
 
-var toBeDoubled = Vector2D(x: 2.0, y: 4.0)
-+++toBeDoubled // Now it's (4.0, 8.0)
+//var toBeDoubled = Vector2D(x: 2.0, y: 4.0)
+//+++toBeDoubled // Now it's (4.0, 8.0)
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -111,12 +113,12 @@ var toBeDoubled = Vector2D(x: 2.0, y: 4.0)
 
 // Defaults: { associativity none precedence 100 }
 
-infix operator +- { associativity left precedence 140 }
+//infix operator +- { associativity left precedence 140 }
 
-func +-(left: Vector2D, right: Vector2D) -> Vector2D {
-    return Vector2D(x: left.x + right.x, y: left.y - right.y)
-}
-
-let firstVector = Vector2D(x: 1.0, y: 2.0)
-let secondVector = Vector2D(x: 3.0, y: 4.0)
-let plusMinusVector = firstVector +- secondVector // (4.0, -2.0)
+//func +-(left: Vector2D, right: Vector2D) -> Vector2D {
+//    return Vector2D(x: left.x + right.x, y: left.y - right.y)
+//}
+//
+//let firstVector = Vector2D(x: 1.0, y: 2.0)
+//let secondVector = Vector2D(x: 3.0, y: 4.0)
+//let plusMinusVector = firstVector +- secondVector // (4.0, -2.0)
